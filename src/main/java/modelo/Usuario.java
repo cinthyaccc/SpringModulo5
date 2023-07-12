@@ -57,15 +57,14 @@ public class Usuario{
 	public String getTipo() {
 		return tipo;
 	}
-	public boolean setTipo(String tipo) {
-		this.tipo = tipo;
-		if ((tipo.equals("Cliente") || tipo.equals("Administrativo") || tipo.equals("Profesional"))) {
-	        return true; // El nombre se estableció correctamente
+	public String setTipo(String tipo) {
+	    if (tipo.equals("Cliente") || tipo.equals("Administrativo") || tipo.equals("Profesional")) {
+	        this.tipo = tipo;
+	        return tipo; // El tipo se estableció correctamente
 	    } else {
-	        return false; // El nombre es inválido
+	        return ""; // El tipo es inválido, se devuelve una cadena vacía
 	    }
 	}
-	
 	public String getFechaDeNacimiento() {
 		return fechaDeNacimiento;
 	}

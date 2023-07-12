@@ -20,7 +20,9 @@ import javax.servlet.http.HttpSession;
 
 import conexion.Conexion;
 import controlador.Contador;
+import modelo.Administrativo;
 import modelo.DatosCapacitacion;
+import modelo.Profesional;
 import modelo.Usuario;
 
 /**
@@ -102,14 +104,16 @@ public class CrearUsuarioServlet extends HttpServlet {
 
 				
 		String tipo = request.getParameter("tipo");
-		 Usuario tipoU = new Usuario();
-		  if (!tipoU.setTipo(tipo)) {
-			    PrintWriter out = response.getWriter();
-			    out.println("<script>alert('Debe seleccionar un tipo');window.location.href='CrearCapacitacionServlet';</script>");
-			    out.close();
-			    return;
-			}
+		Usuario tipoU = new Usuario();
 		
+
+		if (tipo.isEmpty()) {
+		    PrintWriter out = response.getWriter();
+		    out.println("<script>alert('Debe seleccionar un tipo');window.location.href='CrearCapacitacionServlet';</script>");
+		    out.close();
+		    return;
+		}
+
 		
 		
 		String run = request.getParameter("run");
@@ -144,53 +148,194 @@ public class CrearUsuarioServlet extends HttpServlet {
 			    out.close();
 			    return;
 			}
-			    
+		
+		  String area = request.getParameter("area");
+			Administrativo areaA = new Administrativo();
+			if (!areaA.setArea(area)) {
+			    PrintWriter out = response.getWriter();
+			    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+			    out.close();
+			    return;
+			}  
+			 String experienciaPrevia = request.getParameter("experienciaPrevia");
+				Administrativo experienciaP = new Administrativo();
+				if (!experienciaP.setExperienciaPrevia(experienciaPrevia)) {
+				    PrintWriter out = response.getWriter();
+				    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+				    out.close();
+				    return;
+				}  
+				
+				
+				  String titulo = request.getParameter("titulo");
+					Profesional tituloP = new Profesional();
+					if (!tituloP.setTitulo()) {
+					    PrintWriter out = response.getWriter();
+					    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+					    out.close();
+					    return;
+					}  
+					 String fechaIngreso = request.getParameter("fechaIngreso");
+					 Profesional fechaI = new Profesional();
+						if (!fechaI.setFechaDeIngreso(fechaIngreso)) {
+						    PrintWriter out = response.getWriter();
+						    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+						    out.close();
+						    return;
+						}  
+		  
+		  
 	    // Establecer la conexión a la base de datos
 	    Connection conn = Conexion.getConn();
+	    String tipoEstablecido = tipoU.getTipo();
+	    if (tipoEstablecido.equals("profesional")) {
+	       
+	    	try {
+		        // Crear una declaración SQL parametrizada
+		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run) VALUES (DEFAULT, ?, ?, ?, ?)";
+		        PreparedStatement statement = conn.prepareStatement(sql);
 
-	    try {
-	        // Crear una declaración SQL parametrizada
-	        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run) VALUES (DEFAULT, ?, ?, ?, ?)";
-	        PreparedStatement statement = conn.prepareStatement(sql);
+		        // Configurar los parámetros de la declaración SQL
+		        statement.setString(1, nombre);
+		        statement.setString(2, tipo);
+		        statement.setString(3, fechaNacimiento);
+		        statement.setString(4, run);
+		        
+		        // Ejecutar la declaración SQL
+		        int filasAfectadas = statement.executeUpdate();
 
-	        // Configurar los parámetros de la declaración SQL
-	        statement.setString(1, nombre);
-	        statement.setString(2, tipo);
-	        statement.setString(3, fechaNacimiento);
-	        statement.setString(4, run);
-	        
-	        // Ejecutar la declaración SQL
-	        int filasAfectadas = statement.executeUpdate();
+		        if (filasAfectadas > 0) {
+		        	// Obtener el objeto PrintWriter para escribir la respuesta
+		            PrintWriter out = response.getWriter();
 
-	        if (filasAfectadas > 0) {
-	        	// Obtener el objeto PrintWriter para escribir la respuesta
-	            PrintWriter out = response.getWriter();
+		            // Generar código JavaScript para mostrar el mensaje en una ventana emergente
+		            out.println("<script type=\"text/javascript\">");
+		            out.println("alert(\"El Usuario se creó correctamente\");");
+		            out.println("window.location.href = \"CrearUsuarioServlet\";"); // Redirigir a otra página
+		            out.println("</script>");
 
-	            // Generar código JavaScript para mostrar el mensaje en una ventana emergente
-	            out.println("<script type=\"text/javascript\">");
-	            out.println("alert(\"El Usuario se creó correctamente\");");
-	            out.println("window.location.href = \"CrearUsuarioServlet\";"); // Redirigir a otra página
-	            out.println("</script>");
+		            // Cerrar el objeto PrintWriter
+		            out.close();
+		            // La inserción fue exitosa
+		            // Puedes redirigir a una página de éxito o mostrar un mensaje de confirmación
+		            //response.sendRedirect("CrearCapacitacionServlet?mensaje=La capacitación se creó correctamente");
+		        } else {
+		            // Ocurrió un error al insertar los datos
+		            // Puedes redirigir a una página de error o mostrar un mensaje de error
+		            response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		        }
 
-	            // Cerrar el objeto PrintWriter
-	            out.close();
-	            // La inserción fue exitosa
-	            // Puedes redirigir a una página de éxito o mostrar un mensaje de confirmación
-	            //response.sendRedirect("CrearCapacitacionServlet?mensaje=La capacitación se creó correctamente");
-	        } else {
-	            // Ocurrió un error al insertar los datos
-	            // Puedes redirigir a una página de error o mostrar un mensaje de error
-	            response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
-	        }
-
-	        // Cerrar la declaración
-	        statement.close();
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        // Manejar el error de base de datos
-	        // Puedes redirigir a una página de error o mostrar un mensaje de error
-	        response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		        // Cerrar la declaración
+		        statement.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        // Manejar el error de base de datos
+		        // Puedes redirigir a una página de error o mostrar un mensaje de error
+		        response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		    } 
+	    	
+	    	
+	    	
+	    	
+	    	
 	    } 
+	    if (tipoEstablecido.equals("cliente")) {
+	    	try {
+		        // Crear una declaración SQL parametrizada
+		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run) VALUES (DEFAULT, ?, ?, ?, ?)";
+		        PreparedStatement statement = conn.prepareStatement(sql);
+
+		        // Configurar los parámetros de la declaración SQL
+		        statement.setString(1, nombre);
+		        statement.setString(2, tipo);
+		        statement.setString(3, fechaNacimiento);
+		        statement.setString(4, run);
+		        
+		        // Ejecutar la declaración SQL
+		        int filasAfectadas = statement.executeUpdate();
+
+		        if (filasAfectadas > 0) {
+		        	// Obtener el objeto PrintWriter para escribir la respuesta
+		            PrintWriter out = response.getWriter();
+
+		            // Generar código JavaScript para mostrar el mensaje en una ventana emergente
+		            out.println("<script type=\"text/javascript\">");
+		            out.println("alert(\"El Usuario se creó correctamente\");");
+		            out.println("window.location.href = \"CrearUsuarioServlet\";"); // Redirigir a otra página
+		            out.println("</script>");
+
+		            // Cerrar el objeto PrintWriter
+		            out.close();
+		            // La inserción fue exitosa
+		            // Puedes redirigir a una página de éxito o mostrar un mensaje de confirmación
+		            //response.sendRedirect("CrearCapacitacionServlet?mensaje=La capacitación se creó correctamente");
+		        } else {
+		            // Ocurrió un error al insertar los datos
+		            // Puedes redirigir a una página de error o mostrar un mensaje de error
+		            response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		        }
+
+		        // Cerrar la declaración
+		        statement.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        // Manejar el error de base de datos
+		        // Puedes redirigir a una página de error o mostrar un mensaje de error
+		        response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		    }  
+	    } 
+	    if (tipoEstablecido.equals("administrativo")) {
+	    	try {
+		        // Crear una declaración SQL parametrizada
+		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run, area, experienciaPrevia) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
+		        PreparedStatement statement = conn.prepareStatement(sql);
+
+		        // Configurar los parámetros de la declaración SQL
+		        statement.setString(1, nombre);
+		        statement.setString(2, tipo);
+		        statement.setString(3, fechaNacimiento);
+		        statement.setString(4, run);
+		        statement.setString(5, area);
+		        statement.setString(6, experienciaPrevia);
+		        
+		        
+		        
+		        
+		        // Ejecutar la declaración SQL
+		        int filasAfectadas = statement.executeUpdate();
+
+		        if (filasAfectadas > 0) {
+		        	// Obtener el objeto PrintWriter para escribir la respuesta
+		            PrintWriter out = response.getWriter();
+
+		            // Generar código JavaScript para mostrar el mensaje en una ventana emergente
+		            out.println("<script type=\"text/javascript\">");
+		            out.println("alert(\"El Usuario se creó correctamente\");");
+		            out.println("window.location.href = \"CrearUsuarioServlet\";"); // Redirigir a otra página
+		            out.println("</script>");
+
+		            // Cerrar el objeto PrintWriter
+		            out.close();
+		            // La inserción fue exitosa
+		            // Puedes redirigir a una página de éxito o mostrar un mensaje de confirmación
+		            //response.sendRedirect("CrearCapacitacionServlet?mensaje=La capacitación se creó correctamente");
+		        } else {
+		            // Ocurrió un error al insertar los datos
+		            // Puedes redirigir a una página de error o mostrar un mensaje de error
+		            response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		        }
+
+		        // Cerrar la declaración
+		        statement.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		        // Manejar el error de base de datos
+		        // Puedes redirigir a una página de error o mostrar un mensaje de error
+		        response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
+		    }  
+	    } 
+	    
+	    
 	}
 	
 	boolean validar(String nombre, String password) {

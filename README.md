@@ -1,4 +1,6 @@
 Sprint Final M5 Java G5
+
+
 CONTEXTO
 En la última década, han aumentado los índices de accidentabilidad, especialmente en las
 empresas del rubro industrial, minero y construcción. Las cifras son alarmantes, a pesar de las

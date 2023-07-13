@@ -11,7 +11,7 @@ public class Conexion {
 	private Conexion() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/prevencion_riesgos", "modulo5", "061273");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/prevencion_riesgos", "modulo5", "root");
 			if (conn!=null) {
 				System.out.println("Conexión Exitosa");
 			}
@@ -32,5 +32,13 @@ public class Conexion {
 		}
 		return conn;
 	}
-	
+	public static void closeConn(Connection conn) {
+	    if (conn != null) {
+	        try {
+	            conn.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
 }

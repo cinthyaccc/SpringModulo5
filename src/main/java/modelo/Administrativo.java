@@ -9,8 +9,8 @@ public class Administrativo extends Usuario{
 		
 	}
 	
-	 public Administrativo(String nombre, String fechaDeNacimiento, int run, String area, String experienciaPrevia) {
-	        super(0, nombre, fechaDeNacimiento, run, "");
+	 public Administrativo(String nombre, String fechaDeNacimiento, int run, String tipo, String area, String experienciaPrevia) {
+	        super(0, nombre, fechaDeNacimiento, run, tipo);
 	        this.area = area;
 	        this.experienciaPrevia = experienciaPrevia;
 	    }

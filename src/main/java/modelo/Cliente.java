@@ -16,9 +16,9 @@ public Cliente() {
 
 }
 //se crea el constructor con todos los atributos de la clase
-public Cliente(String nombre, String fechaDeNacimiento, int run, int rut, String nombres, String apellidos, int telefono, String afp, String sistemaDeSalud,
+public Cliente(String nombre, String fechaDeNacimiento, int run, String tipo, int rut, String nombres, String apellidos, int telefono, String afp, String sistemaDeSalud,
 		String direccion, String comuna, int edad) {
-	super(0, nombre, fechaDeNacimiento, run, "");
+	super(0, nombre, fechaDeNacimiento, run, tipo);
 	this.rut = rut;
 	this.nombres = nombres;
 	this.apellidos = apellidos;

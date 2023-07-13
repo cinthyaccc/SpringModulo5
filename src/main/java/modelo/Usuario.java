@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class Usuario{
+public class Usuario implements IUsuarios{
 	//se crean los atributos de la clase Usuario
 	 private String nombre;
 	 private String fechaDeNacimiento;

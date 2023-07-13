@@ -9,11 +9,11 @@ public class Administrativo extends Usuario{
 		
 	}
 	
-	public Administrativo(String nombre, String area, String experienciaPrevia) {
-		super(nombre);
-		this.area = area;
-		this.experienciaPrevia = experienciaPrevia;
-	}
+	 public Administrativo(String nombre, String fechaDeNacimiento, int run, String area, String experienciaPrevia) {
+	        super(0, nombre, fechaDeNacimiento, run, "");
+	        this.area = area;
+	        this.experienciaPrevia = experienciaPrevia;
+	    }
 	//se crean los metodos de acceso y modificadores de yodos los atributos
 	public String getArea() {
 		return area;

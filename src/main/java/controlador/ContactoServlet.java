@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import controlador.Contador;
+import java.io.PrintWriter;
 
 /**
  * 
@@ -71,12 +72,26 @@ public class ContactoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	    String nombre = request.getParameter("nombre");
+	    String email = request.getParameter("email");
+	    String comentario = request.getParameter("comentario");
+
+	    // Mostrar los datos en la consola
+	    System.out.println("Datos ingresados:");
+	    System.out.println("Nombre: " + nombre);
+	    System.out.println("Email: " + email);
+	    System.out.println("Comentario: " + comentario);
+
+	    // Preparar la respuesta JSON
+	    response.setContentType("application/json");
+	    PrintWriter out = response.getWriter();
+	    String jsonResponse = "{\"mensaje\": \"Formulario enviado exitosamente\"}";
+	    out.println(jsonResponse);
 	}
 
+	
 	boolean validar(String nombre, String password) {
 		Map<String, String> usuarios = new HashMap<String, String>();
 		usuarios.put("admin", "1234");

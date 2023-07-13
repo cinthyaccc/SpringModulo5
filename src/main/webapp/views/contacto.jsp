@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -16,7 +15,7 @@
 
 <div class=contacto style="display: flex; justify-content: center;">
 
-<form>
+<form action="ContactoServlet" method="post">
 <h1 class=tituloContacto>Formulario de Contacto</h1>
   <label for="nombre">Nombre:</label><br>
   <input type="text" id="nombre" name="nombre"><br><br>
@@ -34,6 +33,51 @@
   
 </form>
     </div>
+    
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+    // Obtener el formulario y manejar el evento de envío
+    var formulario = document.querySelector('form');
+    formulario.addEventListener('submit', function(event) {
+        event.preventDefault(); // Cancelar el envío del formulario
+
+        // Obtener los datos del formulario
+        var formData = new FormData(formulario);
+
+        // Crear una instancia de XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'ContactoServlet', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        // Manejar la respuesta del servidor
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                var response = JSON.parse(xhr.responseText);
+                if (response.mensaje) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Éxito',
+                        text: response.mensaje
+                    }).then(function() {
+                        // Borrar los datos del formulario
+                        formulario.reset();
+                    });
+                }
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un problema al enviar el formulario'
+                });
+            }
+        };
+
+        // Enviar la solicitud AJAX
+        xhr.send(new URLSearchParams(formData));
+    });
+</script>
+
+ 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 <%@ include file='footer.jsp'%>
 </body>

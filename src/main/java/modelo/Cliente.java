@@ -34,72 +34,143 @@ public int getRut() {
 	return rut;
 }
 
-public void setRut(int rut) {
-	this.rut = rut;
+public boolean setRut(String rutStr) {
+
+	if (rutStr != null && !rutStr.isEmpty()) {
+		for (char c : rutStr.toCharArray()) {
+			if (!Character.isDigit(c)) {
+				return false; // El número contiene caracteres no numéricos
+			}
+		}
+		int rut = Integer.parseInt(rutStr);
+		if (rut < 99999999) {
+			// Haces cualquier otra validación adicional que necesites
+			this.rut = rut;
+			return true; // El número entero se estableció correctamente
+		} else {
+			return false;
+		}
+	} else {
+		return false; // El número es inválido o está vacío
+	}
 }
 
 public String getNombres() {
 	return nombres;
 }
 
-public void setNombres(String nombres) {
-	this.nombres = nombres;
+public boolean setNombres(String nombres) {
+    if (nombres.length()>4 && nombres.length()<31) {
+    	this.nombres = nombres;
+        return true; // El nombre se estableció correctamente
+    } else {
+        return false; // El nombre es inválido
+    }
 }
 
 public String getApellidos() {
 	return apellidos;
 }
 
-public void setApellidos(String apellidos) {
-	this.apellidos = apellidos;
+public boolean setApellidos(String apellidos) {
+    if (apellidos.length()>4 && apellidos.length()<31) {
+    	this.apellidos = apellidos;
+        return true; // El apellido se estableció correctamente
+    } else {
+        return false; // El apellido es inválido
+    }
 }
-
 public int getTelefono() {
 	return telefono;
 }
-
-public void setTelefono(int telefono) {
-	this.telefono = telefono;
+public boolean setTelefono(String telefonoStr) {
+    if (telefonoStr != null && !telefonoStr.isEmpty()) {
+        for (char c : telefonoStr.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false; // El número contiene caracteres no numéricos
+            }
+        }
+        int numero = Integer.parseInt(telefonoStr);
+        // Haces cualquier otra validación adicional que necesites
+        this.telefono = numero;
+        return true; // El número entero se estableció correctamente
+    } else {
+        return false; // El número es inválido o está vacío
+    }
 }
 
 public String getAfp() {
 	return afp;
 }
 
-public void setAfp(String afp) {
-	this.afp = afp;
+public boolean setAfp(String afp) {
+    if (afp.length()>3 && afp.length()<31) {
+    	this.afp = afp;
+        return true; // La afp se estableció correctamente
+    } else {
+        return false; // La afp es inválida
+    }
 }
-
 public String getSistemaDeSalud() {
 	return sistemaDeSalud;
 }
 
-public void setSistemaDeSalud(String sistemaDeSalud) {
-	this.sistemaDeSalud = sistemaDeSalud;
+public boolean setSistemaDeSalud(String sistemaDeSalud) {
+	if (sistemaDeSalud.equals("1") || sistemaDeSalud.equals("2")) {
+		this.sistemaDeSalud = sistemaDeSalud;
+        return true; // La afp se estableció correctamente
+    } else {
+        return false; // La afp es inválida
+    }
 }
 
 public String getDireccion() {
 	return direccion;
 }
 
-public void setDireccion(String direccion) {
-	this.direccion = direccion;
+public boolean setDireccion(String direccion) {
+	if (direccion.length()<71) {
+		this.direccion = direccion;
+        return true; // La direccion se estableció correctamente
+    } else {
+        return false; // La direccion es inválida
+    }
 }
 
 public String getComuna() {
 	return comuna;
 }
 
-public void setComuna(String comuna) {
-	this.comuna = comuna;
+public boolean setComuna(String comuna) {
+	if (comuna.length()<51) {
+		this.comuna = comuna;
+        return true; // La comuna se estableció correctamente
+    } else {
+        return false; // La comuna es inválida
+    }
 }
-
 public int getEdad() {
 	return edad;
 }
 
-public void setEdad(int edad) {
-	this.edad = edad;
+public boolean setEdad(String edadStr) {
+	if (edadStr != null && !edadStr.isEmpty()) {
+		for (char c : edadStr.toCharArray()) {
+			if (!Character.isDigit(c)) {
+				return false; // El número contiene caracteres no numéricos
+			}
+		}
+		int edad = Integer.parseInt(edadStr);
+		if (edad >= 0 && edad < 151) {
+			// Haces cualquier otra validación adicional que necesites
+			this.edad = edad;
+			return true; // El número entero se estableció correctamente
+		} else {
+			return false;
+		}
+	} else {
+		return false; // El número es inválido o está vacío
+	}
 }
 
 //se crea metodo toString

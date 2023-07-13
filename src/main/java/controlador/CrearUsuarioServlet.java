@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import conexion.Conexion;
 import controlador.Contador;
 import modelo.Administrativo;
+import modelo.Cliente;
 import modelo.DatosCapacitacion;
 import modelo.Profesional;
 import modelo.Usuario;
@@ -149,50 +150,40 @@ public class CrearUsuarioServlet extends HttpServlet {
 			    return;
 			}
 		
-		  String area = request.getParameter("area");
-			Administrativo areaA = new Administrativo();
-			if (!areaA.setArea(area)) {
-			    PrintWriter out = response.getWriter();
-			    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
-			    out.close();
-			    return;
-			}  
-			 String experienciaPrevia = request.getParameter("experienciaPrevia");
-				Administrativo experienciaP = new Administrativo();
-				if (!experienciaP.setExperienciaPrevia(experienciaPrevia)) {
+				
+			
+						
+						
+		
+						
+
+		  
+	    // Establecer la conexión a la base de datos
+	    Connection conn = Conexion.getConn();
+	    
+	    System.out.println("tipo de usuario" + tipo);
+	    if (tipo.equals("Profesional")) {
+	    	//Profesional
+			  String titulo = request.getParameter("titulo");
+				Profesional tituloP = new Profesional();
+				if (!tituloP.setTitulo(titulo)) {
 				    PrintWriter out = response.getWriter();
 				    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
 				    out.close();
 				    return;
 				}  
-				
-				
-				  String titulo = request.getParameter("titulo");
-					Profesional tituloP = new Profesional();
-					if (!tituloP.setTitulo()) {
+				 String fechaIngreso = request.getParameter("fechaIngreso");
+				 Profesional fechaI = new Profesional();
+					if (!fechaI.setFechaDeIngreso(fechaIngreso)) {
 					    PrintWriter out = response.getWriter();
 					    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
 					    out.close();
 					    return;
 					}  
-					 String fechaIngreso = request.getParameter("fechaIngreso");
-					 Profesional fechaI = new Profesional();
-						if (!fechaI.setFechaDeIngreso(fechaIngreso)) {
-						    PrintWriter out = response.getWriter();
-						    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
-						    out.close();
-						    return;
-						}  
-		  
-		  
-	    // Establecer la conexión a la base de datos
-	    Connection conn = Conexion.getConn();
-	    String tipoEstablecido = tipoU.getTipo();
-	    if (tipoEstablecido.equals("profesional")) {
-	       
+	  
 	    	try {
 		        // Crear una declaración SQL parametrizada
-		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run) VALUES (DEFAULT, ?, ?, ?, ?)";
+		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run, titulo, fechaDeIngreso) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";
 		        PreparedStatement statement = conn.prepareStatement(sql);
 
 		        // Configurar los parámetros de la declaración SQL
@@ -200,6 +191,8 @@ public class CrearUsuarioServlet extends HttpServlet {
 		        statement.setString(2, tipo);
 		        statement.setString(3, fechaNacimiento);
 		        statement.setString(4, run);
+		        statement.setString(5, titulo);
+		        statement.setString(6, fechaIngreso);
 		        
 		        // Ejecutar la declaración SQL
 		        int filasAfectadas = statement.executeUpdate();
@@ -239,10 +232,87 @@ public class CrearUsuarioServlet extends HttpServlet {
 	    	
 	    	
 	    } 
-	    if (tipoEstablecido.equals("cliente")) {
+	    if (tipo.equals("Cliente")) {
+	    	//cliente
+			String rut = request.getParameter("rut");
+			 Cliente rutC = new Cliente();
+				if (!rutC.setRut(rut)) {
+				    PrintWriter out = response.getWriter();
+				    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+				    out.close();
+				    return;
+				}  
+				String nombres = request.getParameter("nombres");
+				 Cliente nombreC = new Cliente();
+					if (!nombreC.setNombres(nombres)) {
+					    PrintWriter out = response.getWriter();
+					    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+					    out.close();
+					    return;
+					}  
+					String apellidos = request.getParameter("apellidos");
+					 Cliente apellidosC = new Cliente();
+						if (!apellidosC.setApellidos(apellidos)) {
+						    PrintWriter out = response.getWriter();
+						    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+						    out.close();
+						    return;
+						}  
+						String telefono = request.getParameter("telefono");
+						 Cliente telefonoC = new Cliente();
+							if (!telefonoC.setTelefono(telefono)) {
+							    PrintWriter out = response.getWriter();
+							    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+							    out.close();
+							    return;
+							}  
+			
+							String afp = request.getParameter("afp");
+							 Cliente afpC = new Cliente();
+								if (!afpC.setAfp(afp)) {
+								    PrintWriter out = response.getWriter();
+								    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+								    out.close();
+								    return;
+								}  
+								String sistemaDeSalud = request.getParameter("sistemaSalud");
+								 Cliente sistemaS = new Cliente();
+									if (!sistemaS.setSistemaDeSalud(sistemaDeSalud)) {
+									    PrintWriter out = response.getWriter();
+									    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+									    out.close();
+									    return;
+									}  
+									String direccion = request.getParameter("direccion");
+									 Cliente direccionC = new Cliente();
+										if (!direccionC.setDireccion(direccion)) {
+										    PrintWriter out = response.getWriter();
+										    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+										    out.close();
+										    return;
+										}  
+										String comuna = request.getParameter("comuna");
+										 Cliente comunaC = new Cliente();
+											if (!comunaC.setComuna(comuna)) {
+											    PrintWriter out = response.getWriter();
+											    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+											    out.close();
+											    return;
+											}  
+											String edad = request.getParameter("edad");
+											 Cliente edadC = new Cliente();
+												if (!edadC.setEdad(edad)) {
+												    PrintWriter out = response.getWriter();
+												    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+												    out.close();
+												    return;
+												}  
+	    	
+	    	
+	    	
 	    	try {
 		        // Crear una declaración SQL parametrizada
-		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run) VALUES (DEFAULT, ?, ?, ?, ?)";
+		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run, rut, nombres, apellidos, telefono, afp, sistemaDeSalud, direccion, comuna, edad) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		        PreparedStatement statement = conn.prepareStatement(sql);
 
 		        // Configurar los parámetros de la declaración SQL
@@ -250,6 +320,16 @@ public class CrearUsuarioServlet extends HttpServlet {
 		        statement.setString(2, tipo);
 		        statement.setString(3, fechaNacimiento);
 		        statement.setString(4, run);
+		        statement.setString(5, rut);
+		        statement.setString(6, nombres);
+		        statement.setString(7, apellidos);
+		        statement.setString(8, telefono);
+		        statement.setString(9, afp);
+		        statement.setString(10, sistemaDeSalud);
+		        statement.setString(11, direccion);
+		        statement.setString(12, comuna);
+		        statement.setString(13, edad);
+		     
 		        
 		        // Ejecutar la declaración SQL
 		        int filasAfectadas = statement.executeUpdate();
@@ -284,7 +364,28 @@ public class CrearUsuarioServlet extends HttpServlet {
 		        response.sendRedirect("CrearUsuarioServlet?mensaje=Error");
 		    }  
 	    } 
-	    if (tipoEstablecido.equals("administrativo")) {
+	    if (tipo.equals("Administrativo")) {//Administrativo
+			  String area = request.getParameter("area");
+				Administrativo areaA = new Administrativo();
+				if (!areaA.setArea(area)) {
+				    PrintWriter out = response.getWriter();
+				    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+				    out.close();
+				    return;
+				}  
+				 String experienciaPrevia = request.getParameter("experiencia");
+				 System.out.println("experiencia " + experienciaPrevia);
+					Administrativo experienciaP = new Administrativo();
+					if (!experienciaP.setExperienciaPrevia(experienciaPrevia)) {
+					    PrintWriter out = response.getWriter();
+					    out.println("<script>alert('Campo Obligatorio');window.location.href='CrearCapacitacionServlet';</script>");
+					    out.close();
+					    return;
+					}  
+	    	
+	    	
+	    	
+	    	
 	    	try {
 		        // Crear una declaración SQL parametrizada
 		        String sql = "INSERT INTO usuarios (id, nombre, tipo, fechaNacimiento, run, area, experienciaPrevia) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)";

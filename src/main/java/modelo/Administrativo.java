@@ -19,16 +19,27 @@ public class Administrativo extends Usuario{
 		return area;
 	}
 
-	public void setArea(String area) {
+	public boolean setArea(String area) {
 		this.area = area;
+		if (area.length() > 5 && area.length() < 30) {
+	        return true; 
+	    } else {
+	        return false; 
+	    }
 	}
 
 	public String getExperienciaPrevia() {
 		return experienciaPrevia;
 	}
 
-	public void setExperienciaPrevia(String experienciaPrevia) {
+	public boolean setExperienciaPrevia(String experienciaPrevia) {
 		this.experienciaPrevia = experienciaPrevia;
+		if (experienciaPrevia.length() < 100) {
+	    	this.experienciaPrevia = experienciaPrevia;
+	        return true; 
+	    } else {
+	        return false; 
+	    }
 	}
 
 	//se crea metodo toString

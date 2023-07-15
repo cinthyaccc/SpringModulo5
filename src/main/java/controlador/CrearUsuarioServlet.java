@@ -61,24 +61,51 @@ public class CrearUsuarioServlet extends HttpServlet {
 	// Verificacion del login
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		int contador = Contador.getContador();
+		
 		HttpSession session = request.getSession();
+	    String tipoUsuario = (String) session.getAttribute("usuario");
+
+	    // Lógica para habilitar/deshabilitar elementos del navbar según el tipo de usuario
+	    boolean mostrarFuncionalidadAdministrador = tipoUsuario.equals("administrador");
+	    boolean mostrarFuncionalidadCliente = tipoUsuario.equals("cliente");
+	    boolean mostrarFuncionalidadProfesional = tipoUsuario.equals("profesional");
+	    boolean mostrarFuncionalidadAdministrativo = tipoUsuario.equals("administrativo");
+
+	    // Guardar los valores en atributos de solicitud para su uso en la página JSP
+	    request.setAttribute("mostrarFuncionalidadAdministrador", mostrarFuncionalidadAdministrador);
+	    request.setAttribute("mostrarFuncionalidadCliente", mostrarFuncionalidadCliente);
+	    request.setAttribute("mostrarFuncionalidadProfesional", mostrarFuncionalidadProfesional);
+	    request.setAttribute("mostrarFuncionalidadAdministrativo", mostrarFuncionalidadAdministrativo);
+	    
+	    
+	    
+		int contador = Contador.getContador();
+		
 		String nombre = (String) session.getAttribute("nombre");
 		String password = (String) session.getAttribute("password");
+		System.out.println("contador" + contador);
+		System.out.println(nombre + password);
 		if (nombre == null || password == null || !validar(nombre, password)) {
+			System.out.println("porque entra aqui");
 			if (contador > 0) {
 
 				String mensaje = "clave incorrecta";
 				request.setAttribute("mensaje", mensaje);
 
 			}
+			
+			
+			
+			
+			
 
 			Contador.setContador(1);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/login.jsp");
 			dispatcher.forward(request, response);
 
 		} else {
-			Contador.setContador(1);
+			Contador.setContador(0);
+			System.out.println("holaaaa");
 			HttpSession sesion = request.getSession();
 			sesion.setAttribute("nombre", nombre);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/crearUsuario.jsp");
@@ -451,10 +478,16 @@ public class CrearUsuarioServlet extends HttpServlet {
 	    
 	}
 	
-	boolean validar(String nombre, String password) {
-		Map<String, String> usuarios = new HashMap<String, String>();
-		usuarios.put("admin", "1234");
-		return usuarios.containsKey(nombre) && usuarios.get(nombre).equals(password);
-	}
+	 boolean validar(String nombre, String password) {
+	        Map<String, String> usuarios = new HashMap<String, String>();
+
+	        usuarios.put("cliente", "cliente");
+	        usuarios.put("profesional", "profesional");
+	        usuarios.put("administrativo", "administrativo");
+
+	        String nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas
+	        return usuarios.containsKey(nombreLowerCase) && usuarios.get(nombreLowerCase).equals(password);
+	    }
+
 	
 }

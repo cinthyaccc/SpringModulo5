@@ -92,9 +92,14 @@ public class ContactoServlet extends HttpServlet {
 	}
 
 	
-	boolean validar(String nombre, String password) {
-		Map<String, String> usuarios = new HashMap<String, String>();
-		usuarios.put("admin", "1234");
-		return usuarios.containsKey(nombre) && usuarios.get(nombre).equals(password);
-	}
+	 boolean validar(String nombre, String password) {
+	        Map<String, String> usuarios = new HashMap<String, String>();
+
+	        usuarios.put("cliente", "cliente");
+	        usuarios.put("profesional", "profesional");
+	        usuarios.put("administrativo", "administrativo");
+
+	        String nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas
+	        return usuarios.containsKey(nombreLowerCase) && usuarios.get(nombreLowerCase).equals(password);
+	    }
 }

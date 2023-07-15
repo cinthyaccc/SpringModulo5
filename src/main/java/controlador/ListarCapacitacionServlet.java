@@ -66,6 +66,22 @@ public class ListarCapacitacionServlet extends HttpServlet {
 
 		int contador = Contador.getContador();
 		HttpSession session = request.getSession();
+	    String tipoUsuario = (String) session.getAttribute("usuario");
+
+	    // Lógica para habilitar/deshabilitar elementos del navbar según el tipo de usuario
+	    boolean mostrarFuncionalidadAdministrador = tipoUsuario.equals("administrador");
+	    boolean mostrarFuncionalidadCliente = tipoUsuario.equals("cliente");
+	    boolean mostrarFuncionalidadProfesional = tipoUsuario.equals("profesional");
+	    boolean mostrarFuncionalidadAdministrativo = tipoUsuario.equals("administrativo");
+
+	    // Guardar los valores en atributos de solicitud para su uso en la página JSP
+	    request.setAttribute("mostrarFuncionalidadAdministrador", mostrarFuncionalidadAdministrador);
+	    request.setAttribute("mostrarFuncionalidadCliente", mostrarFuncionalidadCliente);
+	    request.setAttribute("mostrarFuncionalidadProfesional", mostrarFuncionalidadProfesional);
+	    request.setAttribute("mostrarFuncionalidadAdministrativo", mostrarFuncionalidadAdministrativo);
+		
+		
+		
 		String nombre = (String) session.getAttribute("nombre");
 		String password = (String) session.getAttribute("password");
 
@@ -183,9 +199,14 @@ public class ListarCapacitacionServlet extends HttpServlet {
 		doGet(request, response);
 	}
 
-	boolean validar(String nombre, String password) {
-		Map<String, String> usuarios = new HashMap<String, String>();
-		usuarios.put("admin", "1234");
-		return usuarios.containsKey(nombre) && usuarios.get(nombre).equals(password);
-	}
+	 boolean validar(String nombre, String password) {
+	        Map<String, String> usuarios = new HashMap<String, String>();
+
+	        usuarios.put("cliente", "cliente");
+	        usuarios.put("profesional", "profesional");
+	        usuarios.put("administrativo", "administrativo");
+
+	        String nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas
+	        return usuarios.containsKey(nombreLowerCase) && usuarios.get(nombreLowerCase).equals(password);
+	    }
 }

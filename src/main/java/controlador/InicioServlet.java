@@ -21,6 +21,8 @@ public class InicioServlet extends HttpServlet {
         HttpSession session = request.getSession();
         String tipoUsuario = (String) session.getAttribute("usuario");
 
+  
+        
         // Lógica para habilitar/deshabilitar elementos del navbar según el tipo de usuario
         boolean mostrarFuncionalidadAdministrador = tipoUsuario.equals("administrador");
         boolean mostrarFuncionalidadCliente = tipoUsuario.equals("cliente");

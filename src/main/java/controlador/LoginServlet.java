@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,50 +15,70 @@ import controlador.Contador;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public LoginServlet() {
-		super();
-	}
+    public LoginServlet() {
+        super();
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String nombre = request.getParameter("nombre");
+        String password = request.getParameter("password");
 
-		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-		int contador = Contador.getContador();
-		if (nombre == null || password == null || !validar(nombre, password)) {
+        
+        int contador = Contador.getContador();
+			
+        
+        
+        if (nombre == null || password == null || !validar(nombre, password)) {
+        	if (contador > 0) {
+            String mensaje = "Usuario o contraseña incorrectos";
+           
+            
+            request.setAttribute("mensaje", mensaje);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/views/login.jsp");
+            dispatcher.forward(request, response);
+     
+        	}
+        	 Contador.setContador(1);
+        	 RequestDispatcher dispatcher = request.getRequestDispatcher("/views/login.jsp");
+ 			dispatcher.forward(request, response);
+        } else {
+        	Contador.setContador(0);
+            HttpSession session = request.getSession();
+            session.setAttribute("nombre", nombre);
+            session.setAttribute("password", password);
+            session.setAttribute("usuario", obtenerTipoUsuario(nombre));
+            session.setAttribute("sesionIniciada", true); // Nuevo atributo para indicar que la sesión está iniciada
 
-			if (contador > 0) {
-				String mensaje = "clave incorrecta";
-				request.setAttribute("mensaje", mensaje);
+            response.sendRedirect("InicioServlet");
+        }
+    }
 
-			}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        doGet(request, response);
+    }
 
-			Contador.setContador(1);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/login.jsp");
-			dispatcher.forward(request, response);
+    boolean validar(String nombre, String password) {
+        Map<String, String> usuarios = new HashMap<String, String>();
 
-		} else {
+        usuarios.put("cliente", "cliente");
+        usuarios.put("profesional", "profesional");
+        usuarios.put("administrativo", "administrativo");
 
-			Contador.setContador(0);
-			HttpSession sesion = request.getSession();
-			sesion.setAttribute("nombre", nombre);
-			sesion.setAttribute("password", password);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/contacto.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
+        String nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas
+        return usuarios.containsKey(nombreLowerCase) && usuarios.get(nombreLowerCase).equals(password);
+    }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("POST");
-		doGet(request, response);
-	}
 
-	boolean validar(String nombre, String password) {
-		Map<String, String> usuarios = new HashMap<String, String>();
-		usuarios.put("admin", "1234");
-		return usuarios.containsKey(nombre) && usuarios.get(nombre).equals(password);
-	}
+    String obtenerTipoUsuario(String nombre) {
+        Map<String, String> tiposUsuario = new HashMap<String, String>();
+      
+        tiposUsuario.put("cliente", "cliente");
+        tiposUsuario.put("profesional", "profesional");
+        tiposUsuario.put("administrativo", "administrativo");
+        return tiposUsuario.get(nombre);
+    }
 }

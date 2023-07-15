@@ -4,9 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Listado de Usuarios</title>
+    <link rel="stylesheet" type="text/css" href="/GrupalM5/css/styles.css">
+    <%@ page import="java.util.ArrayList, modelo.Usuario, modelo.Cliente, modelo.Administrativo, modelo.Profesional" %>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.all.min.js"></script>
     <style>
+  
+    
         /* Estilos personalizados */
     </style>
 </head>
@@ -15,7 +20,9 @@
     <img class="imagen-zoom" src="/GrupalM5/resources/logoGrupo5.jpg" alt="Logo de la empresa">
 
     <div class="container">
-        <h1>Usuarios</h1>
+ <h1 style="text-align: center; margin-bottom: 20px;">Usuarios:</h1>
+ 
+        
 
         <% if (request.getAttribute("u") != null) { %>
             <table class="table">

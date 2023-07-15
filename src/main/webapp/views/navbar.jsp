@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/GrupalM5/css/styles.css">
+  
     <title>Insert title here</title>
 </head>
 <header>

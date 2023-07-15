@@ -23,71 +23,71 @@
             </select> 
             <br>
             <br>
-            
+            <!--Datos en comun para todos los tipos de Usuario-->
             <label for="nombre">Ingrese el nombre de usuario:</label><br>
-            <input type="text" id="nombre" name="nombre"><br>
-            <br> 
+            <input type="text" id="nombre" name="nombre" title="Campo Obligatorio"><br><br>
+            <span id="nombreValidationMessage" style="color: red;"></span> <br> 
             <label for="fechaDeNacimiento">Ingrese fecha de nacimiento:</label><br> 
-            <input type="text" id="fechaDeNacimiento" name="fechaDeNacimiento"><br> 
-            <br> 
+            <input type="text" id="fechaDeNacimiento" name="fechaDeNacimiento" title="Formato DD/MM/AAAA" ><br><br>
+            <span id="fechaDeNacimientoValidationMessage" style="color: red;"></span> <br> 
             <label for="run">Ingrese run:</label><br>
-            <input type="text" id="run" name="run"><br>
-            <br> 
+            <input type="text" id="run" name="run" title="Campo Obligatorio / Debe Introducir un Valor Númerico."><br><br>
+            <span id="runValidationMessage" style="color: red;"></span> <br> 
 
-
+			<!-- Datos correspondientes al usuario de tipo Cliente -->
             <div id="camposCliente" style="display: none;">
                 <label for="rut">RUT:</label><br>
-                <input type="text" id="rut" name="rut"><br>
-                <br>
+                <input type="text" id="rut" name="rut" title="Campo Obligatorio / Debe Introducir un Valor Númerico."><br><br>
+                <span id="rutValidationMessage" style="color: red;"></span> <br>
                 <label for="nombres">Nombres:</label><br>
-                <input type="text" id="nombres" name="nombres"><br>
-                <br>
+                <input type="text" id="nombres" name="nombres" title="Campo Obligatorio"><br><br>
+                <span id="nombresValidationMessage" style="color: red;"></span> <br>
                 <label for="apellidos">Apellidos:</label><br>
-                <input type="text" id="apellidos" name="apellidos"><br>
-                <br>
+                <input type="text" id="apellidos" name="apellidos" title="Campo Obligatorio"><br><br>
+                <span id="apellidosValidationMessage" style="color: red;"></span> <br>
                 <label for="telefono">Teléfono:</label><br>
-                <input type="text" id="telefono" name="telefono"><br>
-                <br>
+                <input type="text" id="telefono" name="telefono" title="Campo Obligatorio / Debe Introducir un Valor Númerico."><br><br>
+                <span id="telefonoValidationMessage" style="color: red;"></span> <br>
                 <label for="afp">AFP:</label><br>
-                <input type="text" id="afp" name="afp"><br>
-                <br>
+                <input type="text" id="afp" name="afp" title="Campo Obligatorio"><br><br>
+                <span id="afpValidationMessage" style="color: red;"></span> <br>
                 <label for="sistemaSalud">Sistema de salud:</label><br>
                 <select id="sistemaSalud" name="sistemaSalud">
-                	<option value="Seleccione">Seleccione</option>
                     <option value="1">Fonasa</option>
                     <option value="2">Isapre</option>
                 </select>
                 <br>
                 <br>
                 <label for="direccion">Dirección:</label><br>
-                <input type="text" id="direccion" name="direccion"><br>
-                <br>
+                <input type="text" id="direccion" name="direccion" title="Campo Obligatorio"><br><br>
+                <span id="direccionValidationMessage" style="color: red;"></span> <br>
                 <label for="comuna">Comuna:</label><br>
-                <input type="text" id="comuna" name="comuna"><br>
-                <br>
+                <input type="text" id="comuna" name="comuna" title="Campo Obligatorio"><br><br>
+				<span id="comunaValidationMessage" style="color: red;"></span> <br>
                 <label for="edad">Edad:</label><br>
-                <input type="text" id="edad" name="edad"><br>
-                <br>
+                <input type="text" id="edad" name="edad" title="Campo Obligatorio / Debe Introducir un Valor Númerico."><br><br>
+                <span id="edadValidationMessage" style="color: red;"></span> <br>
             </div>
-
+			<!--  Datos correspondientes al usuario de tipo Profesional-->
             <div id="camposProfesional" style="display: none;">
                 <label for="titulo">Título:</label><br>
-                <input type="text" id="titulo" name="titulo"><br>
-                <br>
+                <input type="text" id="titulo" name="titulo" title="Campo Obligatorio"><br><br>
+                <span id="tituloValidationMessage" style="color: red;"></span> <br>
                 <label for="fechaIngreso">Fecha de ingreso:</label><br>
-                <input type="text" id="fechaIngreso" name="fechaIngreso"><br>
-                <br>
+                <input type="text" id="fechaIngreso" name="fechaIngreso" title="/ En Formato DD/MM/AAAA" ><br><br>
+                <span id="fechaIngresoValidationMessage" style="color: red;"></span> <br>
             </div>
 
             <div id="camposAdministrativo" style="display: none;">
                 <label for="area">Área:</label><br>
-                <input type="text" id="area" name="area"><br>
-                <br>
+                <input type="text" id="area" name="area" title="Campo Obligatorio"><br><br>
+                <span id="areaValidationMessage" style="color: red;"></span> <br>
                 <label for="experiencia">Experiencia previa:</label><br>
-                <input type="text" id="experiencia" name="experiencia"><br>
-                <br>
+                <input type="text" id="experiencia" name="experiencia" title="Campo Obligatorio"><br><br>
+            	<span id="experienciaValidationMessage" style="color: red;"></span> <br>
             </div>
-
+			
+			
             <div style="display: flex; justify-content: center;">
                 <input type="submit" value="Enviar" class="boton-enviar">
             </div>
@@ -96,6 +96,267 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+    //Validaciones
+    //Validar Campo nombre
+var nombreInput = document.getElementById('nombre');
+var nombreValidationMessage = document.getElementById('nombreValidationMessage');
+
+nombreInput.addEventListener('input', function() {
+  var nombreValue = nombreInput.value.trim();
+  
+  if (nombreValue === '') {
+    nombreValidationMessage.textContent = 'Por favor, introduzca nombre. Campo Obligatorio';
+  } else {
+    nombreValidationMessage.textContent = '';
+  }
+});
+//Validar Campo fecha de nacimiento
+var fechaDeNacimientoInput = document.getElementById('fechaDeNacimiento');
+var fechaDeNacimientoValidationMessage = document.getElementById('fechaDeNacimientoValidationMessage');
+
+fechaDeNacimientoInput.addEventListener('input', function() {
+  var fechaDeNacimientoValue = fechaDeNacimientoInput.value.trim();
+  
+  if (fechaDeNacimientoValue === '') {
+    fechaDeNacimientoValidationMessage.textContent = 'Por favor, introduzca la fecha de nacimiento. Campo Obligatorio';
+  } else if (!isValidDateFormat(fechaDeNacimientoValue)) {
+    fechaDeNacimientoValidationMessage.textContent = 'El formato de fecha debe ser dd/mm/aaaa';
+  } else {
+    fechaDeNacimientoValidationMessage.textContent = '';
+  }
+});
+
+function isValidDateFormat(dateString) {
+  // Validar el formato de fecha dd/mm/aaaa usando una expresión regular
+  var datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+  return datePattern.test(dateString);
+}
+//Validar Campo Run
+var runInput = document.getElementById('run');
+var runValidationMessage = document.getElementById('runValidationMessage');
+
+runInput.addEventListener('input', function() {
+  var runValue = runInput.value.trim();
+  
+  if (runValue === '') {
+    runValidationMessage.textContent = 'Por favor, introduzca el Rut sin puntos ni guion';
+  } else if (!/^[0-9]+$/.test(runValue)) {
+    runValidationMessage.textContent = 'Por favor, introduzca un Rut válido. Solo se permiten dígitos numéricos.';
+  } else if (parseInt(runValue, 10) > 99999999) {
+    runValidationMessage.textContent = 'Por favor, introduzca un Rut válido. El número no puede ser mayor a 99.999.999.';
+  } else {
+    runValidationMessage.textContent = '';
+  }
+});
+
+
+//Validar datos del usurio tipo cliente
+//Validar Campo Rut
+var rutInput = document.getElementById('rut');
+var rutValidationMessage = document.getElementById('rutValidationMessage');
+
+rutInput.addEventListener('input', function() {
+  var rutValue = rutInput.value.trim();
+
+  if (rutValue === '') {
+    rutValidationMessage.textContent = 'Por favor, introduzca el Rut. Campo Obligatorio';
+  } else if (!/^[0-9]+$/.test(rutValue)) {
+    rutValidationMessage.textContent = 'Por favor, introduzca un Rut válido. Solo se permiten dígitos numéricos.';
+  } else if (parseInt(rutValue, 10) > 99999999) {
+    rutValidationMessage.textContent = 'Por favor, introduzca un Rut válido. El número no puede ser mayor a 99.999.999.';
+  } else {
+    rutValidationMessage.textContent = '';
+  }
+});
+
+  
+//Validar Campo nombres
+  var nombresInput = document.getElementById('nombres');
+  var nombresValidationMessage = document.getElementById('nombresValidationMessage');
+
+  nombresInput.addEventListener('input', function() {
+    var nombresValue = nombresInput.value.trim();
+
+    if (nombresValue === '') {
+      nombresValidationMessage.textContent = 'Por favor, introduzca nombre. Campo Obligatorio';
+    } else {
+      nombresValidationMessage.textContent = '';
+    }
+  });
+
+  // Validar Campo apellidos
+  var apellidosInput = document.getElementById('apellidos');
+  var apellidosValidationMessage = document.getElementById('apellidosValidationMessage');
+
+  apellidosInput.addEventListener('input', function() {
+    var apellidosValue = apellidosInput.value.trim();
+
+    if (apellidosValue === '') {
+      apellidosValidationMessage.textContent = 'Por favor, introduzca apellidos. Campo Obligatorio';
+    } else {
+      apellidosValidationMessage.textContent = '';
+    }
+  });
+
+//Validar Campo telefono
+  var telefonoInput = document.getElementById('telefono');
+  var telefonoValidationMessage = document.getElementById('telefonoValidationMessage');
+
+  telefonoInput.addEventListener('input', function() {
+    var telefonoValue = telefonoInput.value.trim();
+    
+    if (telefonoValue === '') {
+      telefonoValidationMessage.textContent = 'Por favor, introduzca un número de teléfono. Campo Obligatorio';
+    } else if (!isValidPhoneNumber(telefonoValue)) {
+      telefonoValidationMessage.textContent = 'Por favor, introduzca un número de teléfono válido';
+    } else {
+      telefonoValidationMessage.textContent = '';
+    }
+  });
+  
+
+  function isValidPhoneNumber(phoneNumber) {
+    // Validar que el número de teléfono contenga solo dígitos numéricos
+    var numberPattern = /^\d+$/;
+    return numberPattern.test(phoneNumber);
+  }
+
+  //Validar Campo afp
+  var afpInput = document.getElementById('afp');
+  var afpValidationMessage = document.getElementById('afpValidationMessage');
+
+  afpInput.addEventListener('input', function() {
+    var afpValue = afpInput.value.trim();
+    
+    if (afpValue === '') {
+      afpValidationMessage.textContent = 'Por favor, introduzca nombre. Campo Obligatorio';
+    } else {
+      afpValidationMessage.textContent = '';
+    }
+  });
+  //Validar Campo direccion
+  var direccionInput = document.getElementById('direccion');
+  var direccionValidationMessage = document.getElementById('direccionValidationMessage');
+
+  direccionInput.addEventListener('input', function() {
+    var direccionValue = direccionInput.value.trim();
+    
+    if (direccionValue === '') {
+      direccionValidationMessage.textContent = 'Por favor, introduzca nombre. Campo Obligatorio';
+    } else {
+      direccionValidationMessage.textContent = '';
+    }
+  });
+  
+//Validar Campo comuna
+  var comunaInput = document.getElementById('comuna');
+  var comunaValidationMessage = document.getElementById('comunaValidationMessage');
+
+  comunaInput.addEventListener('input', function() {
+    var comunaValue = comunaInput.value.trim();
+    
+    if (comunaValue === '') {
+      comunaValidationMessage.textContent = 'Por favor, introduzca la comuna. Campo Obligatorio';
+    } else {
+      comunaValidationMessage.textContent = '';
+    }
+  });
+
+  
+  var edadInput = document.getElementById('edad');
+  var edadValidationMessage = document.getElementById('edadValidationMessage');
+
+  edadInput.addEventListener('input', function() {
+    var edadValue = edadInput.value.trim();
+    
+    if (edadValue === '') {
+      edadValidationMessage.textContent = 'Por favor, introduzca una edad. Campo Obligatorio';
+    } else if (!isValidAge(edadValue)) {
+      edadValidationMessage.textContent = 'Por favor, introduzca una edad válida';
+    } else {
+      edadValidationMessage.textContent = '';
+    }
+  });
+
+  function isValidAge(age) {
+    // Validar que la edad contenga solo dígitos numéricos
+    var numberPattern = /^\d+$/;
+    return numberPattern.test(age);
+  }
+
+//Validar datos del usurio tipo profesional
+
+  //Validar Campo titulo
+var tituloInput = document.getElementById('titulo');
+var tituloValidationMessage = document.getElementById('tituloValidationMessage');
+
+tituloInput.addEventListener('input', function() {
+  var tituloValue = tituloInput.value.trim();
+  
+  if (tituloValue === '') {
+    tituloValidationMessage.textContent = 'Por favor, introduzca nombre. Campo Obligatorio';
+  } else {
+    tituloValidationMessage.textContent = '';
+  }
+});
+var fechaIngresoInput = document.getElementById('fechaIngreso');
+var fechaIngresoValidationMessage = document.getElementById('fechaIngresoValidationMessage');
+
+fechaIngresoInput.addEventListener('input', function() {
+  var fechaIngresoValue = fechaIngresoInput.value.trim();
+  
+  if (fechaIngresoValue === '') {
+    fechaIngresoValidationMessage.textContent = 'Por favor, introduzca una fecha de ingreso. Campo Obligatorio';
+  } else if (!isValidDateFormat(fechaIngresoValue)) {
+    fechaIngresoValidationMessage.textContent = 'El formato de fecha debe ser DD/MM/AAAA';
+  } else if (!isValidNumericFormat(fechaIngresoValue)) {
+    fechaIngresoValidationMessage.textContent = 'La fecha de ingreso debe contener solo valores numéricos';
+  } else {
+    fechaIngresoValidationMessage.textContent = '';
+  }
+});
+
+function isValidDateFormat(dateString) {
+  // Validar el formato de fecha DD/MM/AAAA usando una expresión regular
+  var datePattern = /^\d{2}\/\d{2}\/\d{4}$/;
+  return datePattern.test(dateString);
+}
+
+function isValidNumericFormat(dateString) {
+  // Validar que la fecha de ingreso contenga solo dígitos numéricos
+  var numberPattern = /^\d+$/;
+  return numberPattern.test(dateString.replace(/\//g, ''));
+}
+
+//Validar datos del usuario de tipo administrativo
+  var areaInput = document.getElementById('area');
+var areaValidationMessage = document.getElementById('areaValidationMessage');
+
+areaInput.addEventListener('input', function() {
+  var areaValue = areaInput.value.trim();
+  
+  if (areaValue === '') {
+    areaValidationMessage.textContent = 'Por favor, introduzca el área. Campo Obligatorio';
+  } else {
+    areaValidationMessage.textContent = '';
+  }
+});
+
+var experienciaInput = document.getElementById('experiencia');
+var experienciaValidationMessage = document.getElementById('experienciaValidationMessage');
+
+experienciaInput.addEventListener('input', function() {
+  var experienciaValue = experienciaInput.value.trim();
+  
+  if (experienciaValue === '') {
+    experienciaValidationMessage.textContent = 'Por favor, introduzca la experiencia. Campo Obligatorio';
+  } else {
+    experienciaValidationMessage.textContent = '';
+  }
+});
+
+  
+    
         function enviarFormulario(event) {
             event.preventDefault(); // Cancelar el envío del formulario
 
@@ -109,6 +370,8 @@
 
             return false;
         }
+        
+       
 
         function mostrarCamposAdicionales() {
             var tipoSeleccionado = document.getElementById("tipo").value;

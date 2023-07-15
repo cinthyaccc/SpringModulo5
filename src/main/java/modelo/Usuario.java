@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class Usuario{
+public class Usuario implements IUsuarios{
 	//se crean los atributos de la clase Usuario
 	 private String nombre;
 	 private String fechaDeNacimiento;
 	 private int run;
-	 private int id;
+	 //private int id;
 	 private String tipo;
 	//se crea el  constructor vacio 
 	 public Usuario() {
@@ -24,9 +24,8 @@ public class Usuario{
 		 }
 	 
 	 //se crea el constructor con todos los atributos de la clase
-	public Usuario(int id, String nombre, String fechaDeNacimiento, int run, String tipo) {
+	public Usuario(String nombre, String fechaDeNacimiento, int run, String tipo) {
 		super();
-		this.id= id;
 		this.tipo = tipo;
 		this.nombre = nombre;
 		this.fechaDeNacimiento = fechaDeNacimiento;
@@ -48,24 +47,26 @@ public class Usuario{
 	        return false; // El nombre es inválido
 	    }
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+//	public int getId() {
+//		return id;
+//	}
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	public String getTipo() {
 		return tipo;
 	}
 	public boolean setTipo(String tipo) {
-		this.tipo = tipo;
-		if ((tipo.equals("Cliente") || tipo.equals("Administrativo") || tipo.equals("Profesional"))) {
-	        return true; // El nombre se estableció correctamente
+	    if (tipo.equals("Cliente") || tipo.equals("Administrativo") || tipo.equals("Profesional")) {
+	        this.tipo = tipo;
+	        return true; // El tipo se estableció correctamente
 	    } else {
-	        return false; // El nombre es inválido
+	        return false; // El tipo es inválido
 	    }
 	}
+
 	
+
 	public String getFechaDeNacimiento() {
 		return fechaDeNacimiento;
 	}

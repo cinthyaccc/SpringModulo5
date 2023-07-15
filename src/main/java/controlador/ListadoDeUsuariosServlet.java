@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.ClaseDao;
+import InterfaceDAO.ICapacitacionDao;
+import InterfaceDAO.IUsuarioDAO;
 import conexion.Conexion;
 import controlador.Contador;
 import modelo.Administrativo;
@@ -39,6 +42,12 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+	private IUsuarioDAO dao;
+	private List<Usuario> usuario; 
+    public void init() throws ServletException {
+       dao = ClaseDao.getUsuarioDAO();
+       usuario = new ArrayList<>();
+     }
 	public ListadoDeUsuariosServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -93,8 +102,11 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 						// Ejecutar la consulta SQL
 						String sql = "SELECT id, nombre, tipo, fechaNacimiento, run, area, experienciaPrevia FROM usuarios";
 						ResultSet resultSet = statement.executeQuery(sql);
-						// Crear una lista para almacenar los usuarios
+						//Crear una lista para almacenar los usuarios
 						List<Administrativo> administrativos = new ArrayList<>();
+						//se Listan las capacitaciones con el patron DAO
+						//List<Usuario> usuarios = dao.listarUsuario();
+						
 						// Recorrer los resultados de la consulta
 						while (resultSet.next()) {
 							// Obtener los valores de cada columna

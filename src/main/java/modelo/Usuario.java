@@ -11,7 +11,7 @@ public class Usuario implements IUsuarios{
 	 private String nombre;
 	 private String fechaDeNacimiento;
 	 private int run;
-	 private int id;
+	 //private int id;
 	 private String tipo;
 	//se crea el  constructor vacio 
 	 public Usuario() {
@@ -24,9 +24,8 @@ public class Usuario implements IUsuarios{
 		 }
 	 
 	 //se crea el constructor con todos los atributos de la clase
-	public Usuario(int id, String nombre, String fechaDeNacimiento, int run, String tipo) {
+	public Usuario(String nombre, String fechaDeNacimiento, int run, String tipo) {
 		super();
-		this.id= id;
 		this.tipo = tipo;
 		this.nombre = nombre;
 		this.fechaDeNacimiento = fechaDeNacimiento;
@@ -48,12 +47,12 @@ public class Usuario implements IUsuarios{
 	        return false; // El nombre es inválido
 	    }
 	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+//	public int getId() {
+//		return id;
+//	}
+//	public void setId(int id) {
+//		this.id = id;
+//	}
 	public String getTipo() {
 		return tipo;
 	}

@@ -19,13 +19,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import InterfaceDAO.ICapacitacionDao;
+
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-
+import DAO.ClaseDao;
 import conexion.Conexion;
 import controlador.Contador;
-
+import DAO.ClaseDao;
+import InterfaceDAO.ICapacitacionDao;
 import modelo.DatosCapacitacion;
 
 /**
@@ -95,12 +98,12 @@ public class CrearCapacitacionServlet extends HttpServlet {
 
 	    }
 		
-		
-		
-		
-       
+	private ICapacitacionDao dao;
 
-	
+    public void init() throws ServletException {
+        dao = ClaseDao.getCapacitacionDAO();
+    }
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -227,6 +230,10 @@ public class CrearCapacitacionServlet extends HttpServlet {
 		    out.close();
 		    return;
 		}
+		
+		// Se crea un objeto y se añade a un listado existente.
+				DatosCapacitacion capacitacion1 = new DatosCapacitacion(idC, rutC, dia, hora, lugar, duracion, cantidadC, nombre, detalle);
+				dao.registrarCapacitacion(capacitacion1);
 		
 		
 	    

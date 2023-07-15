@@ -19,8 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import InterfaceDAO.ICapacitacionDao;
 import conexion.Conexion;
 import controlador.Contador;
+import DAO.ClaseDao;
+
 
 
 
@@ -41,6 +44,13 @@ public class ListarCapacitacionServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+	private ICapacitacionDao dao;
+	private List<DatosCapacitacion> capacitaciones; 
+    public void init() throws ServletException {
+       dao = ClaseDao.getCapacitacionDAO();
+       capacitaciones = new ArrayList<>();
+     }
+	
 	public ListarCapacitacionServlet() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -82,6 +92,7 @@ public class ListarCapacitacionServlet extends HttpServlet {
 			
 			
 		}
+		
 			
 		
 			    // Obtener la conexión a la base de datos
@@ -96,8 +107,10 @@ public class ListarCapacitacionServlet extends HttpServlet {
 			        ResultSet resultSet = statement.executeQuery(sql);
 
 			        // Crear una lista para almacenar las capacitaciones
-			        List<DatosCapacitacion> capacitaciones = new ArrayList<>();
-
+			       // List<DatosCapacitacion> capacitaciones = new ArrayList<>();
+			        
+			      //se Listan las capacitaciones con el patron DAO
+					List<DatosCapacitacion> capacitaciones = dao.listarCapacitacion();
 			        // Recorrer los resultados de la consulta
 			        while (resultSet.next()) {
 			            // Obtener los valores de cada columna

@@ -1,3 +1,5 @@
-/controlador/
 /conexion/
+/DAO/
+/InterfaceDAO/
+/controlador/
 /modelo/

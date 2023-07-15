@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import DAO.ClaseDao;
+import InterfaceDAO.ICapacitacionDao;
+import InterfaceDAO.IUsuarioDAO;
 import conexion.Conexion;
 import controlador.Contador;
 import modelo.Administrativo;
@@ -84,6 +87,12 @@ public class CrearUsuarioServlet extends HttpServlet {
 
 	}
 	
+	private IUsuarioDAO dao;
+
+    public void init() throws ServletException {
+        dao = ClaseDao.getUsuarioDAO();
+    }
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -149,7 +158,10 @@ public class CrearUsuarioServlet extends HttpServlet {
 			    out.close();
 			    return;
 			}
-		
+		  
+		// Se crea un objeto y se añade a un listado existente.
+			Usuario usuario1 = new Usuario(nombre, fechaNacimiento, runU, tipo);
+			dao.registrarUsuario(usuario1);
 				
 			
 						

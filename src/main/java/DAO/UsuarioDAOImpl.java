@@ -23,5 +23,17 @@ public class UsuarioDAOImpl implements IUsuarioDAO {
 		usuario.add(usuario1);
 	}
 
+	@Override
+	public void modificarUsuario(int id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Usuario> obtenerListaUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

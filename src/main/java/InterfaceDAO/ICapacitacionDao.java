@@ -5,7 +5,9 @@ import java.util.List;
 import modelo.DatosCapacitacion;
 
 public interface ICapacitacionDao {
-	public List<DatosCapacitacion>listarCapacitacion();
-	public void registrarCapacitacion(DatosCapacitacion datosCapacitacion1);
-
+	void registrarCapacitacion(DatosCapacitacion capacitacion);
+	void modificarCapacitacion(int id);
+	
+	//	void eliminarCapacitacion(int id);
+	List<DatosCapacitacion> obtenerListaCapacitaciones();
 }

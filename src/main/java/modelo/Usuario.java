@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Usuario implements IUsuarios{
 	//se crean los atributos de la clase Usuario
+	private int id;
 	 private String nombre;
 	 private String fechaDeNacimiento;
 	 private int run;
@@ -24,6 +25,15 @@ public class Usuario implements IUsuarios{
 		 }
 	 
 	 //se crea el constructor con todos los atributos de la clase
+	public Usuario(int id, String nombre, String fechaDeNacimiento, int run, String tipo) {
+		super();
+		this.id = id;
+		this.tipo = tipo;
+		this.nombre = nombre;
+		this.fechaDeNacimiento = fechaDeNacimiento;
+		this.run = run;
+	}
+	
 	public Usuario(String nombre, String fechaDeNacimiento, int run, String tipo) {
 		super();
 		this.tipo = tipo;
@@ -47,12 +57,12 @@ public class Usuario implements IUsuarios{
 	        return false; // El nombre es inválido
 	    }
 	}
-//	public int getId() {
-//		return id;
-//	}
-//	public void setId(int id) {
-//		this.id = id;
-//	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getTipo() {
 		return tipo;
 	}

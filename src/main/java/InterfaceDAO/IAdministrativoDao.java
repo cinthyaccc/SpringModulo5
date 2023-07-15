@@ -4,10 +4,10 @@ import java.util.List;
 
 import modelo.Administrativo;
 
-
 public interface IAdministrativoDao {
-	public List<Administrativo>listarAdministrativo();
-	public void registrarAdministrativo(Administrativo administrativo);
-
-
+	void registrarAdministrativo(Administrativo administrativo);
+	void modificarAdministrativo(Administrativo administrativo);
+//	Administrativo obtenerAdministrativo(int id);
+	//	void eliminarAdministrativo(Administrativo administrativo);
+	List<Administrativo> obtenerListaAdministrativos();
 }

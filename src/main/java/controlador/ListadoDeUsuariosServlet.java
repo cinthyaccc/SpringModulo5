@@ -119,7 +119,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 							String experienciaPrevia = resultSet.getString("experienciaPrevia");
 
 							// Crear un objeto Administrativo y agregarlo a la lista
-							Administrativo administrativo = new Administrativo(nombreU, fechaDeNacimiento, run, tipoU, area, experienciaPrevia);
+							Administrativo administrativo = new Administrativo(id, nombreU, fechaDeNacimiento, run, tipoU, area, experienciaPrevia);
 							administrativos.add(administrativo);
 							System.out.println(administrativos);
 
@@ -155,7 +155,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 							int edad = resultSetC.getInt("edad");
 
 							// Crear un objeto Cliente y agregarlo a la lista
-							Cliente cliente = new Cliente(nombreU, fechaDeNacimiento, run, tipoU, rut, nombres, apellidos, telefono, afp, sistemaDeSalud, direccion, comuna, edad);
+							Cliente cliente = new Cliente(id, nombreU, fechaDeNacimiento, run, tipoU, rut, nombres, apellidos, telefono, afp, sistemaDeSalud, direccion, comuna, edad);
 							clientes.add(cliente);
 							System.out.println(clientes);
 
@@ -183,7 +183,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 							String fechaIngreso = resultSetP.getString("fechaIngreso");
 
 							// Crear un objeto Profesional y agregarlo a la lista
-							Profesional profesional = new Profesional(nombreU, fechaDeNacimiento, run, tipoU, titulo, fechaIngreso);
+							Profesional profesional = new Profesional(id, nombreU, fechaDeNacimiento, run, tipoU, titulo, fechaIngreso);
 							profesionales.add(profesional);
 							System.out.println(profesionales);
 
@@ -264,6 +264,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	        // Recorrer los resultados de la consulta
 	        while (resultSet.next()) {
 	            // Obtener los valores de cada columna
+	        	int id = resultSet.getInt("id");
 	            String nombre = resultSet.getString("nombre");
 	            String fechaDeNacimiento = resultSet.getString("fechaNacimiento");
 	            int run = resultSet.getInt("run");
@@ -279,7 +280,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	            int edad = resultSet.getInt("edad");
 
 	            // Crear un objeto Cliente y agregarlo a la lista
-	            Cliente cliente = new Cliente(nombre, fechaDeNacimiento, run, tipo, rut, nombres, apellidos, telefono, afp, sistemaDeSalud, direccion, comuna, edad);
+	            Cliente cliente = new Cliente(id, nombre, fechaDeNacimiento, run, tipo, rut, nombres, apellidos, telefono, afp, sistemaDeSalud, direccion, comuna, edad);
 	            clientes.add(cliente);
 	        }
 
@@ -313,6 +314,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	        // Recorrer los resultados de la consulta
 	        while (resultSet.next()) {
 	            // Obtener los valores de cada columna
+	        	int id = resultSet.getInt("id");
 	            String nombre = resultSet.getString("nombre");
 	            String fechaDeNacimiento = resultSet.getString("fechaNacimiento");
 	            int run = resultSet.getInt("run");
@@ -322,7 +324,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	            
 
 	            // Crear un objeto Cliente y agregarlo a la lista
-	            Profesional profesional = new Profesional(nombre, fechaDeNacimiento, run, tipo, titulo, fechaIngreso);
+	            Profesional profesional = new Profesional(id, nombre, fechaDeNacimiento, run, tipo, titulo, fechaIngreso);
 	            profesionales.add(profesional);
 	        }
 
@@ -357,6 +359,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	        // Recorrer los resultados de la consulta
 	        while (resultSet.next()) {
 	            // Obtener los valores de cada columna
+	        	int id = resultSet.getInt("id");
 	            String nombre = resultSet.getString("nombre");
 	            String fechaDeNacimiento = resultSet.getString("fechaNacimiento");
 	            int run = resultSet.getInt("run");
@@ -366,7 +369,7 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	            
 
 	            // Crear un objeto Cliente y agregarlo a la lista
-	            Administrativo administrativo = new Administrativo(nombre, fechaDeNacimiento, run, tipo, area, experienciaPrevia);
+	            Administrativo administrativo = new Administrativo(id, nombre, fechaDeNacimiento, run, tipo, area, experienciaPrevia);
 	            administrativos.add(administrativo);
 	        }
 

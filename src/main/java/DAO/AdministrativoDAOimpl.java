@@ -157,10 +157,18 @@ public class AdministrativoDAOimpl implements IAdministrativoDao{
 	    }
 	}
 	
-//	@Override
-//	public Administrativo obtenerAdministrativo(int id) {
-//		
-//	}
+	@Override
+	public Administrativo obtenerAdministrativo(int id) {
+		List<Administrativo> administrativos = obtenerListaAdministrativos();
+		Administrativo administrativoEncontrado = null;
+        for (Administrativo administrativo : administrativos) {
+            if (administrativo.getId() == id) {
+            	administrativoEncontrado = administrativo;
+                break; // Romper el bucle una vez que se encuentre el cliente con el ID buscado
+            }
+        }
+		return administrativoEncontrado;
+	}
 	
 	public int getFilasInsertadas() {
         return filasInsertadas;

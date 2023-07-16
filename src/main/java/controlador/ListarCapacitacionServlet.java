@@ -107,10 +107,10 @@ public class ListarCapacitacionServlet extends HttpServlet {
 			        ResultSet resultSet = statement.executeQuery(sql);
 
 			        // Crear una lista para almacenar las capacitaciones
-			       // List<DatosCapacitacion> capacitaciones = new ArrayList<>();
+			        List<DatosCapacitacion> capacitaciones = new ArrayList<>();
 			        
 			      //se Listan las capacitaciones con el patron DAO
-					List<DatosCapacitacion> capacitaciones = dao.listarCapacitacion();
+//					List<DatosCapacitacion> capacitaciones = dao.listarCapacitacion();
 			        // Recorrer los resultados de la consulta
 			        while (resultSet.next()) {
 			            // Obtener los valores de cada columna

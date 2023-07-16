@@ -14,6 +14,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import DAO.AdministrativoDAOimpl;
+import DAO.ClienteDAOImpl;
+import DAO.ProfesionalDAOImpl;
 import modelo.Administrativo;
 import modelo.Cliente;
 import modelo.Profesional;
@@ -21,39 +24,42 @@ import modelo.Usuario;
 
 @WebServlet("/EditarUsuarioServlet")
 public class EditarUsuarioServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String tipoUsuario = request.getParameter("tipo");
+        String usuarioId = request.getParameter("id");
 
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/nombre_base_de_datos";
-	private static final String DB_USER = "usuario";
-	private static final String DB_PASSWORD = "contraseña";
+        Usuario usuario = obtenerUsuarioPorId(tipoUsuario, usuarioId);
 
-	public EditarUsuarioServlet() {
-		super();
-	}
+        if (usuario != null) {
+            String jspEditar = getJspEditar(tipoUsuario);
+            request.setAttribute("usuario", usuario);
+            request.getRequestDispatcher(jspEditar).forward(request, response);
+        } else {
+            response.getWriter().println("Usuario no encontrado o tipo de usuario no válido.");
+        }
+    }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String tipo = request.getParameter("tipo");
+    // Método que obtiene el usuario por su ID y tipo de usuario
+    private Usuario obtenerUsuarioPorId(String tipoUsuario, String id) {
+        // Código para obtener el usuario según su ID y tipo
+    }
 
-		if (tipo != null) {
-			switch (tipo) {
-				case "Cliente":
-					editarCliente(request, response);
-					break;
-				case "Administrativo":
-					editarAdministrativo(request, response);
-					break;
-				case "Profesional":
-					editarProfesional(request, response);
-					break;
-				default:
-					response.sendRedirect("ListadoUsuariosServlet");
-					break;
-			}
-		} else {
-			response.sendRedirect("ListadoUsuariosServlet");
-		}
-	}
+    // Método que devuelve el nombre del JSP de edición según el tipo de usuario
+    private String getJspEditar(String tipoUsuario) {
+        String jspEditar;
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        if ("Cliente".equalsIgnoreCase(tipoUsuario)) {
+            jspEditar = "editarCliente.jsp";
+        } else if ("Profesional".equalsIgnoreCase(tipoUsuario)) {
+            jspEditar = "editarProfesional.jsp";
+        } else if ("Administrativo".equalsIgnoreCase(tipoUsuario)) {
+            jspEditar = "editarAdministrativo.jsp";
+        } else {
+        	//Falta hacer ese jsp
+            jspEditar = "error.jsp"; // O manejar un JSP para mostrar un mensaje de error.
+        }
+
+        return jspEditar;
+    }
+}

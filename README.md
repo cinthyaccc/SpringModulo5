@@ -1,4 +1,15 @@
 Sprint Final M5 Java G5
+Grupo 5:
+Autores:  Sabina Leal, Juan Barrientos, Manuel Chavez, Sebastian Fernandez, Cinthya Caldera.
+ 
+ Link GitHub: https://github.com/cinthyaccc/SpringModulo5.git
+ 
+Actores: Existen tres tipos de usuario que pueden acceder al sistema:
+
+*Usuario: administrativo   /  clave: administrativo
+*Usuario: cliente   /  clave: cliente
+*Usuario: profesional  /  clave: profesional
+
 
 CONTEXTO En la última década, han aumentado los índices de accidentabilidad, especialmente en las empresas del rubro industrial, minero y construcción. Las cifras son alarmantes, a pesar de las leyes y normativas que obligan a las empresas a tomar todaslas medidas necesarias para proteger la vida y salud de los trabajadores. Para dar cumplimiento a la normativa y mantener ambientes de trabajo seguros, muchas empresas se ven en la obligación de contratar asesoría profesional, lo cual representa un costo elevado y fomenta la disminución o la no implementación de medidas necesarias para la seguridad. Muchas de las empresas que han optado por no invertir en asesoría preventiva, se ven expuestas a aplicación de multas de las entidades fiscalizadoras, gastos por días perdidos en accidentabilidad, bajas en la producción, alzas en el pago de cotizaciones (al organismo administrador del seguro de accidentes del trabajo, ley 16.744), entre otros. Además, hay que considerar posibles demandas y pagos de indemnizaciones a lostrabajadores y familiares afectados por accidentes del trabajo. Un grupo de profesionales ha fundado una compañía de asesorías en prevención de riesgos laborales y necesita una solución tecnológica que ayude a administrar los procesos que se deben ejecutar en cada una de las empresas que son clientes de la compañía. Este servicio finalmente pretende ofrecer una solución completa en prevención de riesgos para las empresas a un costo razonable, cumpliendo estrictamente todos los procesos necesarios para dar cumplimiento a la normativa vigente, mejorando los ambientes de trabajo, la productividad, contribuyendo a un ahorro económico.
 

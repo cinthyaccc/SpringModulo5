@@ -16,6 +16,7 @@
     
         /* Estilos personalizados */
     </style>
+    
 </head>
 <body>
    <%@ include file='navbar.jsp'%>

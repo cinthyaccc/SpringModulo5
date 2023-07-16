@@ -6,6 +6,13 @@
 <link rel="stylesheet" type="text/css" href="/GrupalM5/css/styles.css">
 <title>Login</title>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+body {
+    background-image: url("/GrupalM5/img/imagen1.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
 </head>
 <header><img class="imagen-zoom" src="/GrupalM5/resources/logoGrupo5.jpg" alt="Logo de la empresa"></header>
 <body>

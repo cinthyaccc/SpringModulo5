@@ -6,8 +6,15 @@
 <link rel="stylesheet" type="text/css" href="/GrupalM5/css/styles.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 <title>Crear Usuario</title>
+ <style>
+.prueba {
+    background-image: url("/GrupalM5/img/imagen4.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
 </head>
-<body>
+<body class="prueba">
     <%@ include file='navbar.jsp'%>
     <img class="imagen-zoom" src="/GrupalM5/resources/logoGrupo5.jpg" alt="Logo de la empresa">
 

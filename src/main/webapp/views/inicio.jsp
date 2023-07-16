@@ -10,7 +10,13 @@
 
 <%@ include file="navbar.jsp" %>
 
-
+<style>
+body {
+    background-image: url("/GrupalM5/img/imagen2.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+</style>
 </head>
 <body>
 

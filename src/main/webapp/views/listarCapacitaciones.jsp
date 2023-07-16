@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Listado de capacitaciones</title>
+      <link rel="stylesheet" type="text/css" href="/GrupalM5/css/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>

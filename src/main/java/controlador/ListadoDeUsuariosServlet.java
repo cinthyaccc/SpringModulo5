@@ -225,9 +225,13 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String tipo = request.getParameter("tipo");
+	    
+		
+		String tipo = request.getParameter("tipo");
 	    System.out.println("post tipo "+tipo);
 	    request.setAttribute("tipo", tipo);
+	    HttpSession session = request.getSession();
+	    session.setAttribute("tipoUsuario", tipo);
 	    // Aquí puedes realizar las operaciones necesarias en función del tipo seleccionado
 	    
 	    // Por ejemplo, puedes obtener la lista correspondiente al tipo seleccionado
@@ -239,6 +243,14 @@ public class ListadoDeUsuariosServlet extends HttpServlet {
 	    // Finalmente, redirigir la solicitud al archivo JSP
 	    RequestDispatcher dispatcher = request.getRequestDispatcher("/views/listadoDeUsuarios.jsp");
 	    dispatcher.forward(request, response);
+	    
+
+	
+	    
+	    
+	    
+	    
+	    
 	}
 	
 	private List<IUsuarios> obtenerListaUsuarios(String tipo) {

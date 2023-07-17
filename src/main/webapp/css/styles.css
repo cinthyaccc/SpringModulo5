@@ -53,10 +53,11 @@ label {
 .contacto{
   
   padding: 20px;
-  margin-top: 80px;
-  margin-left: 280px;
-  margin-right: 280px;
-  background-color:  rgb(204, 255, 204);
+  text-align: justify;
+  margin-top: 110px;
+  margin-left: 115px;
+  margin-right: 115px;
+  background-color: rgba(236, 247, 255, 0.5);
 }
 .boton-enviar {
   text-align: center;

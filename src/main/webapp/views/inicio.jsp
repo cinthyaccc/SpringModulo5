@@ -12,7 +12,7 @@
 
 <style>
 body {
-    background-image: url("/GrupalM5/img/imagen2.jpeg");
+    background-image: url("/GrupalM5/img/Imagen2.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }

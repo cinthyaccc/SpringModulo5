@@ -187,7 +187,7 @@ public class CrearUsuarioServlet extends HttpServlet {
 			}
 		  
 		// Se crea un objeto y se añade a un listado existente.
-			Usuario usuario1 = new Usuario(nombre, fechaNacimiento, runU, tipo);
+			Usuario usuario1 = new Usuario(0, nombre, fechaNacimiento, runU, tipo);
 			dao.registrarUsuario(usuario1);
 				
 			
@@ -322,6 +322,8 @@ public class CrearUsuarioServlet extends HttpServlet {
 									    out.close();
 									    return;
 									}  
+									sistemaDeSalud = sistemaS.getSistemaDeSalud();
+
 									String direccion = request.getParameter("direccion");
 									 Cliente direccionC = new Cliente();
 										if (!direccionC.setDireccion(direccion)) {
@@ -488,6 +490,4 @@ public class CrearUsuarioServlet extends HttpServlet {
 	        String nombreLowerCase = nombre.toLowerCase(); // Convertir a minúsculas
 	        return usuarios.containsKey(nombreLowerCase) && usuarios.get(nombreLowerCase).equals(password);
 	    }
-
-	
 }
